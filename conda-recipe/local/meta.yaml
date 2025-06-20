@@ -1,9 +1,10 @@
 {% set name = "mcrnmf" %}
 {% set version = "0.1.0" %}
+{% set python_min = "3.11" %}
 
 package:
   name: {{ name|lower }}
-  version: {{version}}
+  version: {{ version }}
 
 source:
   path: ../../
@@ -15,17 +16,28 @@ build:
 
 requirements:
   host:
-    - python
+    - python {{ python_min }}
     - pip
     - setuptools >=61.0
   run:
-    - python >=3.11.9
-    - numpy >=1.26.4
-    - numba >=0.60.0
+    - python >={{ python_min }},<3.14
+    - numba >=0.61.2
+    - numpy >=1.24,<2.3
+
+test:
+  requires:
+    - python {{ python_min }}
+    - pip
+  imports:
+    - mcrnmf
+  commands:
+    - pip check
 
 about:
-  home: https://github.com/yourusername/mcrnmf
+  home: https://github.com/siddarthVasudevan/mcrnmf
+  doc_url: https://siddarthvasudevan.github.io/mcrnmf/
   license: MIT
+  license_file: LICENSE
   summary: "Multivariate Curve Resolution using Nonnegative Matrix Factorization"
 
 extra:
