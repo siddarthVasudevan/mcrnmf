@@ -11,11 +11,11 @@ associated concentration profiles.
   Least Squares (FroALS), Fast Projected Gradient (FroFPGM), and Minimum-Volume
   formulation (MinVol).
 - **Built-in constraints** – supports closure, normalization, equality, and per-component
-  unimodality constraints
+  unimodality constraints.
 - **Robust initialisation** – includes Successive Nonnegative Projection (SNPA) algorithm
   for generating reliable starting estimates of spectra and concentrations
 - **Lightweight implementation** – written almost entirely in NumPy, with Numba used
-  only to speed up unimodal regression
+  only to speed up unimodal regression.
 
 For more details, see the [documentation](https://siddarthvasudevan.github.io/mcrnmf/).
 
