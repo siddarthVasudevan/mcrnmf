@@ -1,0 +1,719 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>FroALS &#8212; mcrnmf 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generated/mcrnmf.models.FroALS';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FroFPGM" href="mcrnmf.models.FroFPGM.html" />
+    <link rel="prev" title="API Reference" href="../api.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.svg" class="logo__image only-light" alt="mcrnmf 0.1.0 documentation - Home"/>
+    <img src="../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="mcrnmf 0.1.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../usage/index.html">
+    Usage Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../api.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../changelog.html">
+    Changelog
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../usage/index.html">
+    Usage Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../api.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../changelog.html">
+    Changelog
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Models</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">FroALS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcrnmf.models.FroFPGM.html">FroFPGM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcrnmf.models.MinVol.html">MinVol</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcrnmf.models.SNPA.html">SNPA</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">NNLS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="mcrnmf.nnls.FPGM.html">FPGM</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../api.html" class="nav-link">API Reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">FroALS</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="froals">
+<h1>FroALS<a class="headerlink" href="#froals" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="mcrnmf.models.FroALS">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcrnmf.models.</span></span><span class="sig-name descname"><span class="pre">FroALS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unimodal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mcrnmf/models.html#FroALS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mcrnmf.models.FroALS" title="Link to this definition">#</a></dt>
+<dd><p>Frobenius norm-based Nonnegative Matrix Factorization (NMF) using Alternating Least
+Squares (ALS) method.</p>
+<p>Factorizes a nonnegative matrix <span class="math notranslate nohighlight">\(X\)</span> into two nonnegative matrices <span class="math notranslate nohighlight">\(W\)</span>
+and <span class="math notranslate nohighlight">\(H\)</span> by minimizing the squared Frobenius norm between <span class="math notranslate nohighlight">\(X\)</span> and product
+<span class="math notranslate nohighlight">\(WH\)</span> using FPGM algorithm. The following objective function is minimized
+subject to nonnegativity and other optional constraints on <span class="math notranslate nohighlight">\(W\)</span> and <span class="math notranslate nohighlight">\(H\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[f_{\textrm{obj}} = ||X - WH||_F^2\]</div>
+<p>where <span class="math notranslate nohighlight">\(||\cdot||_{F}\)</span> is the Frobenius norm.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>rank</strong><span class="classifier">int</span></dt><dd><p>The number of components for the factorization.</p>
+</dd>
+<dt><strong>constraint_kind</strong><span class="classifier">integer-like {0, 1, 2, 3, 4}, default=0</span></dt><dd><p>The following constraints are applied based on the integer value specified:</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">0</span></code>: Only <span class="math notranslate nohighlight">\(W \geq 0\)</span>, <span class="math notranslate nohighlight">\(H \geq 0\)</span>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">1</span></code>: Closure constraint <span class="math notranslate nohighlight">\(H^T e ≤ e\)</span>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">2</span></code>: Closure constraint <span class="math notranslate nohighlight">\(H e = e\)</span>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">3</span></code>: Constraint <span class="math notranslate nohighlight">\(W^T e = e\)</span>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">4</span></code>: Closure constraint <span class="math notranslate nohighlight">\(H^T e = e\)</span>.</p></li>
+</ul>
+<p>Note, for 1, 2, 3, and 4 values of <code class="docutils literal notranslate"><span class="pre">constraint_kind</span></code> nonnegativity constraints
+are also applied along with the additional constraint specified above.</p>
+</dd>
+<dt><strong>unimodal</strong><span class="classifier">dict or None, default=None</span></dt><dd><p>Specifies unimodality constraints for <span class="math notranslate nohighlight">\(W\)</span> and <span class="math notranslate nohighlight">\(H\)</span> matrices. If
+<code class="docutils literal notranslate"><span class="pre">None</span></code>, no unimodality constraints are applied.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">dict</span></code>, Format: {‘W’: bool | list of bool, ‘H’: bool | list of bool}:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Must contain at least one key (‘W’ or ‘H’)</p></li>
+<li><p>No other keys besides ‘W’ and ‘H’ are allowed</p></li>
+<li><p>For ‘W’: Controls unimodality of columns in W</p></li>
+<li><p>For ‘H’: Controls unimodality of rows in H</p></li>
+</ul>
+</div></blockquote>
+<p>Each value can be:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A boolean: applies to all components</p></li>
+<li><p>A list of booleans: selectively applies to specific components</p></li>
+</ul>
+</div></blockquote>
+<p>Examples:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">{'H':</span> <span class="pre">True}</span></code>: All <span class="math notranslate nohighlight">\(H\)</span> components are unimodal</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{'W':</span> <span class="pre">True,</span> <span class="pre">'H':</span> <span class="pre">True}</span></code>: All <span class="math notranslate nohighlight">\(W\)</span> and <span class="math notranslate nohighlight">\(H\)</span> components are
+unimodal</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{'H':</span> <span class="pre">[True,</span> <span class="pre">False,</span> <span class="pre">True]}</span></code>: Only components 0 and 2 of <span class="math notranslate nohighlight">\(H\)</span> have
+unimodal behavior</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{'W':</span> <span class="pre">[False,</span> <span class="pre">True,</span> <span class="pre">False]}</span></code>: Only component 1 of <span class="math notranslate nohighlight">\(W\)</span> has
+unimodal behavior</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>iter_max</strong><span class="classifier">int, default=500</span></dt><dd><p>Maximum number of iterations. It must be greater <span class="math notranslate nohighlight">\(\geq 10\)</span>.</p>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float, default=1e-4</span></dt><dd><p>Tolerance for convergence. Must be in the interval <span class="math notranslate nohighlight">\((0, 1)\)</span>.</p>
+<blockquote>
+<div><p>Convergence is reached when:</p>
+<div class="math notranslate nohighlight">
+\[{|e[i] - e[i-10]| \over e[i]} \leq \textrm{tol}\]</div>
+<p>where:</p>
+<ul>
+<li><p>iteration <span class="math notranslate nohighlight">\(i \geq 10\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(e[i]\)</span> is the squared relative loss after iteration <span class="math notranslate nohighlight">\(i\)</span>, which
+is defined as</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[e[i] = {||X - W^{i}H^{i}||_{F}^2 \over ||X||_{F}^2}\]</div>
+<p>where <span class="math notranslate nohighlight">\(W^{i}\)</span> and <span class="math notranslate nohighlight">\(H^{i}\)</span> is the value of <span class="math notranslate nohighlight">\(W\)</span> and
+<span class="math notranslate nohighlight">\(H\)</span>, respectively, after iteration <span class="math notranslate nohighlight">\(i\)</span>.</p>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="r394e874d93f9-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<p>Gillis, Nicolas. Nonnegative matrix factorization. Society for Industrial and
+Applied Mathematics, 2020.</p>
+</div>
+<div class="citation" id="r394e874d93f9-2" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<p>Van Benthem, Mark H., and Michael R. Keenan. “Fast algorithm for the solution
+of large‐scale non‐negativity‐constrained least squares problems.” Journal of
+Chemometrics: A Journal of the Chemometrics Society 18.10 (2004): 441-450.</p>
+</div>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">mcrnmf.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">FroALS</span><span class="p">,</span> <span class="n">SNPA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">mcrnmf.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_rxn_spectra</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load the example dataset from mcrnmf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">wv</span><span class="p">,</span> <span class="n">time</span>  <span class="o">=</span> <span class="n">load_rxn_spectra</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># generate initial guess using SNPA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">snpa</span> <span class="o">=</span> <span class="n">SNPA</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">snpa</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Wi</span> <span class="o">=</span> <span class="n">snpa</span><span class="o">.</span><span class="n">W</span>  <span class="c1"># Initial estimate for W</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Hi</span> <span class="o">=</span> <span class="n">snpa</span><span class="o">.</span><span class="n">H</span>  <span class="c1"># Initial estimate for H</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of FroALS and fit the model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">FroALS</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">constraint_kind</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">iter_max</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Wi</span><span class="p">,</span> <span class="n">Hi</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># access decomposed factors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">W</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">W</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">H</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># check convergence status</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">converged</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">is_converged</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># access rel. reconstruction error after each iterations</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rel_recon_err</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">rel_reconstruction_error_ls</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="mcrnmf.models.FroALS.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Wi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Hi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">known_W</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">known_H</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess_scale_WH</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mcrnmf/models.html#FroALS.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mcrnmf.models.FroALS.fit" title="Link to this definition">#</a></dt>
+<dd><p>Fit the FroALS model to the provided data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">ndarray of shape (n_features, n_samples)</span></dt><dd><p>Data array to be factorized.</p>
+</dd>
+<dt><strong>Wi</strong><span class="classifier">ndarray of shape (n_features, rank)</span></dt><dd><p>Initial guess for the factor <span class="math notranslate nohighlight">\(W\)</span>.</p>
+</dd>
+<dt><strong>Hi</strong><span class="classifier">ndarray of shape (rank, n_samples)</span></dt><dd><p>Initial guess for the factor <span class="math notranslate nohighlight">\(H\)</span>.</p>
+</dd>
+<dt><strong>known_W</strong><span class="classifier">ndarray of shape (n_features, rank), default=None</span></dt><dd><p>Array containing known values of <span class="math notranslate nohighlight">\(W\)</span>.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> elements of the array are treated as unknown.</p></li>
+<li><p>Equality constraint is applied at those indices of <span class="math notranslate nohighlight">\(W\)</span> which do not
+correspond <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> entries in <code class="docutils literal notranslate"><span class="pre">known_W</span></code>.</p></li>
+</ul>
+</dd>
+<dt><strong>known_H</strong><span class="classifier">ndarray of shape (rank, n_samples), default=None</span></dt><dd><p>Array containing known values of <span class="math notranslate nohighlight">\(H\)</span>.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> elements of the array are treated as unknown.</p></li>
+<li><p>Equality constraint is applied at those indices of <span class="math notranslate nohighlight">\(H\)</span> which do not
+correspond <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> entries in <code class="docutils literal notranslate"><span class="pre">known_H</span></code>.</p></li>
+</ul>
+</dd>
+<dt><strong>preprocess_scale_WH</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>,  <code class="docutils literal notranslate"><span class="pre">Wi</span></code> and <code class="docutils literal notranslate"><span class="pre">Hi</span></code> are scaled before optimization.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcrnmf.models.FroALS.H">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">H</span></span><a class="headerlink" href="#mcrnmf.models.FroALS.H" title="Link to this definition">#</a></dt>
+<dd><p>The coefficient matrix <span class="math notranslate nohighlight">\(H\)</span> obtained after fitting the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ndarray of shape (rank, n_samples)</dt><dd><p>The obtained <span class="math notranslate nohighlight">\(H\)</span> after fitting the model.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcrnmf.models.FroALS.W">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">W</span></span><a class="headerlink" href="#mcrnmf.models.FroALS.W" title="Link to this definition">#</a></dt>
+<dd><p>The basis matrix <span class="math notranslate nohighlight">\(W\)</span> obtained after fitting the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ndarray of shape (n_features, rank)</dt><dd><p>The obtained <span class="math notranslate nohighlight">\(W\)</span> after fitting the model.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcrnmf.models.FroALS.is_converged">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_converged</span></span><a class="headerlink" href="#mcrnmf.models.FroALS.is_converged" title="Link to this definition">#</a></dt>
+<dd><p>The convergence status.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>bool</dt><dd><p>Whether the algorithm converged within <code class="docutils literal notranslate"><span class="pre">iter_max</span></code> iterations.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if convergence was reached based on <code class="docutils literal notranslate"><span class="pre">tol</span></code> criterion</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code> if maximum iterations were reached without convergence</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcrnmf.models.FroALS.rel_loss_ls">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rel_loss_ls</span></span><a class="headerlink" href="#mcrnmf.models.FroALS.rel_loss_ls" title="Link to this definition">#</a></dt>
+<dd><p>List of relative loss values from each iteration during model fitting.</p>
+<p>It is defined as:</p>
+<div class="math notranslate nohighlight">
+\[\dfrac{\sqrt{f_{\textrm{obj}}^{i}}}{||X||_F}\ \textrm{,}\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(||\cdot||_F\)</span> denotes the Frobenius norm</p></li>
+<li><p><span class="math notranslate nohighlight">\(X\)</span> is the original data matrix</p></li>
+<li><p><span class="math notranslate nohighlight">\(f_{\textrm{obj}}^{i}\)</span> is the value of objective function after
+iteration <span class="math notranslate nohighlight">\(i\)</span></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>list of float</dt><dd><p>Relative loss value from each iteration.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcrnmf.models.FroALS.rel_reconstruction_error_ls">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rel_reconstruction_error_ls</span></span><a class="headerlink" href="#mcrnmf.models.FroALS.rel_reconstruction_error_ls" title="Link to this definition">#</a></dt>
+<dd><p>List of relative reconstruction errors from each iteration during model fitting.</p>
+<p>The relative reconstruction error measures how well the current factors
+approximate the original data. It is the ratio:</p>
+<div class="math notranslate nohighlight">
+\[\dfrac{||X - W^{i}H^{i}||_F}{||X||_F}\ \textrm{,}\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(||\cdot||_F\)</span> denotes the Frobenius norm</p></li>
+<li><p><span class="math notranslate nohighlight">\(X\)</span> is the original data matrix</p></li>
+<li><p><span class="math notranslate nohighlight">\(W^{i}\)</span> and <span class="math notranslate nohighlight">\(H^{i}\)</span> are values of <span class="math notranslate nohighlight">\(W\)</span> and <span class="math notranslate nohighlight">\(H\)</span> after
+iteration <span class="math notranslate nohighlight">\(i\)</span></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>list of float</dt><dd><p>Relative reconstruction error from each iteration.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mcrnmf.models.FroALS"><code class="docutils literal notranslate"><span class="pre">FroALS</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mcrnmf.models.FroALS.fit"><code class="docutils literal notranslate"><span class="pre">FroALS.fit()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mcrnmf.models.FroALS.H"><code class="docutils literal notranslate"><span class="pre">FroALS.H</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mcrnmf.models.FroALS.W"><code class="docutils literal notranslate"><span class="pre">FroALS.W</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mcrnmf.models.FroALS.is_converged"><code class="docutils literal notranslate"><span class="pre">FroALS.is_converged</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mcrnmf.models.FroALS.rel_loss_ls"><code class="docutils literal notranslate"><span class="pre">FroALS.rel_loss_ls</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mcrnmf.models.FroALS.rel_reconstruction_error_ls"><code class="docutils literal notranslate"><span class="pre">FroALS.rel_reconstruction_error_ls</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/generated/mcrnmf.models.FroALS.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Siddarth A. Vasudevan.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

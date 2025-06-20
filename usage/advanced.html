@@ -1,0 +1,637 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Advanced Topics &#8212; mcrnmf 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'usage/advanced';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Predicting Concentration Profiles from Fixed Spectra" href="reuse_w.html" />
+    <link rel="prev" title="Basic Workflow: From Data to Decomposition" href="workflow.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.svg" class="logo__image only-light" alt="mcrnmf 0.1.0 documentation - Home"/>
+    <img src="../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="mcrnmf 0.1.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Usage Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../changelog.html">
+    Changelog
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Usage Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../changelog.html">
+    Changelog
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">Basic Workflow: From Data to Decomposition</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reuse_w.html">Predicting Concentration Profiles from Fixed Spectra</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Usage Guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Advanced Topics</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="advanced-topics">
+<h1>Advanced Topics<a class="headerlink" href="#advanced-topics" title="Link to this heading">#</a></h1>
+<p>This section explores advanced usage patterns in McrNmf, including handling conflicting
+constraints, selectively applying unimodality, and incorporating known concentration
+values during model fitting. All examples assume a starting point consistent with the
+basic workflow, using <a class="reference internal" href="../generated/mcrnmf.models.SNPA.html#mcrnmf.models.SNPA" title="mcrnmf.models.SNPA"><code class="xref py py-class docutils literal notranslate"><span class="pre">SNPA</span></code></a> for initial estimates, and refining
+with the <a class="reference internal" href="../generated/mcrnmf.models.MinVol.html#mcrnmf.models.MinVol" title="mcrnmf.models.MinVol"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinVol</span></code></a> model.</p>
+<p>Begin by importing the dataset and generating initial estimates using
+<a class="reference internal" href="../generated/mcrnmf.models.SNPA.html#mcrnmf.models.SNPA" title="mcrnmf.models.SNPA"><code class="xref py py-class docutils literal notranslate"><span class="pre">SNPA</span></code></a>, as shown in the <a class="reference internal" href="workflow.html"><span class="doc">Basic Workflow: From Data to Decomposition</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcrnmf</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinVol</span><span class="p">,</span> <span class="n">SNPA</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcrnmf.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_rxn_spectra</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">wv</span><span class="p">,</span> <span class="n">time</span> <span class="o">=</span> <span class="n">load_rxn_spectra</span><span class="p">()</span>
+
+<span class="n">num_components</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">snpa</span> <span class="o">=</span> <span class="n">SNPA</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="n">num_components</span><span class="p">,</span> <span class="n">iter_max</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">snpa</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">Wi</span> <span class="o">=</span> <span class="n">snpa</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">Hi</span> <span class="o">=</span> <span class="n">snpa</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="handling-conflicting-constraints-unimodality-vs-closure">
+<h2>Handling Conflicting Constraints: <em>Unimodality vs. Closure</em><a class="headerlink" href="#handling-conflicting-constraints-unimodality-vs-closure" title="Link to this heading">#</a></h2>
+<p>When working with multiple constraints, be aware that some combinations may not be fully
+satisfied simultaneously, particularly when combining <code class="docutils literal notranslate"><span class="pre">constraint_kind=4</span></code> (strict closure:
+concentrations sum to 1 at each time point) with unimodality constraints on <span class="math notranslate nohighlight">\(H\)</span>.</p>
+<p>Consider the following example using the included dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Apply both column sum=1 constraint and unimodality</span>
+<span class="n">mvol_incompatible</span> <span class="o">=</span> <span class="n">MinVol</span><span class="p">(</span>
+    <span class="n">rank</span><span class="o">=</span><span class="n">num_components</span><span class="p">,</span>
+    <span class="n">constraint_kind</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>  <span class="c1"># Sum of concentrations at each timepoint = 1</span>
+    <span class="n">unimodal</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># All concentration profiles should be unimodal</span>
+    <span class="n">lambdaa</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
+    <span class="n">iter_max</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Fit the model with potentially incompatible constraints</span>
+<span class="n">mvol_incompatible</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">Wi</span><span class="o">=</span><span class="n">Wi</span><span class="p">,</span> <span class="n">Hi</span><span class="o">=</span><span class="n">Hi</span><span class="p">)</span>
+
+<span class="c1"># Visualize the results</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">mvol_incompatible</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_components</span><span class="p">)],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Component&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [h]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Mole fraction&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Concentration Profiles with Conflicting Constraints&quot;</span><span class="p">)</span>
+
+<span class="c1"># Check if columns sum to 1 exactly</span>
+<span class="n">column_sums</span> <span class="o">=</span> <span class="n">mvol_incompatible</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All columns sum to 1: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">column_sums</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">is_unimodal</span><span class="p">(</span><span class="n">arr_1d</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifies that the array has at most one peak&quot;&quot;&quot;</span>
+    <span class="n">increasing</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">decreasing</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">arr_1d</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">arr_1d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">arr_1d</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+            <span class="n">increasing</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">decreasing</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">arr_1d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">arr_1d</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+            <span class="n">decreasing</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="n">unimodal_status</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mvol_incompatible</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">unimodal_status</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">is_unimodal</span><span class="p">(</span><span class="n">mvol_incompatible</span><span class="o">.</span><span class="n">H</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]))</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s2">&quot;Unimodality satisfied: </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">unimodal_status</span><span class="p">)</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">unimodal_status</span><span class="p">)</span><span class="si">}</span><span class="s2"> components&quot;</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/constraints_conflict.svg"><img alt="Constraints compatibility issues" src="../_images/constraints_conflict.svg" style="width: 80%;" />
+</a>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Limitation</strong>: When using <code class="docutils literal notranslate"><span class="pre">constraint_kind=4</span></code> (column sum = 1) together with
+unimodality constraints, both constraints may not be perfectly satisfied
+simultaneously.</p>
+<p><strong>Why this happens</strong>: These constraints are applied sequentially in the algorithm:</p>
+<ol class="arabic simple">
+<li><p>Unimodality modifies each row to follow a single-peak pattern</p></li>
+<li><p>Column normalization scales values to maintain sum = 1</p></li>
+</ol>
+<p>When one constraint is enforced, it may disturb the other constraint that was
+previously satisfied. The algorithm prioritizes the <code class="docutils literal notranslate"><span class="pre">constraint_kind</span></code> parameter,
+so the column sum constraint will generally be more precisely maintained than
+unimodality.</p>
+<p><strong>Recommendation</strong>:</p>
+<ul class="simple">
+<li><p>Prefer <code class="docutils literal notranslate"><span class="pre">constraint_kind=1</span></code> (sum <span class="math notranslate nohighlight">\(\leq\)</span> 1) when applying unimodality, as it
+offers more flexibility and avoids mutual interference between the constraints.</p></li>
+</ul>
+</div>
+</section>
+<section id="component-specific-unimodal-constraints">
+<h2>Component-Specific Unimodal Constraints<a class="headerlink" href="#component-specific-unimodal-constraints" title="Link to this heading">#</a></h2>
+<p>You can apply constraints selectively to different components. For example, only certain
+components of <span class="math notranslate nohighlight">\(H\)</span> may need unimodality constraints:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Apply unimodal constraints only to components 0 and 2</span>
+<span class="n">mvol_uni_some</span> <span class="o">=</span> <span class="n">MinVol</span><span class="p">(</span>
+    <span class="n">rank</span><span class="o">=</span><span class="n">num_components</span><span class="p">,</span>
+    <span class="n">constraint_kind</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">unimodal</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]},</span>
+    <span class="n">lambdaa</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
+    <span class="n">iter_max</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="c1"># Fit the model with selective constraints</span>
+<span class="n">mvol_uni_some</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">Wi</span><span class="o">=</span><span class="n">Wi</span><span class="p">,</span> <span class="n">Hi</span><span class="o">=</span><span class="n">Hi</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">mvol_uni_some</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_components</span><span class="p">)],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Component&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [h]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Mole fraction&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Unimodality Applied Only to Components 0 and 2 of H&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/conc_mvol_uni_some.svg"><img alt="Selective unimodal constraints" src="../_images/conc_mvol_uni_some.svg" style="width: 80%;" />
+</a>
+</figure>
+</section>
+<section id="incorporating-known-concentration-measurements">
+<h2>Incorporating Known Concentration Measurements<a class="headerlink" href="#incorporating-known-concentration-measurements" title="Link to this heading">#</a></h2>
+<p>If you have measured concentration values for certain components at specific timepoints,
+you can incorporate this information into the model fitting using the <code class="docutils literal notranslate"><span class="pre">known_H</span></code> parameter.</p>
+<p>The example below builds on the same setup from earlier, using initial estimates from
+<a class="reference internal" href="../generated/mcrnmf.models.SNPA.html#mcrnmf.models.SNPA" title="mcrnmf.models.SNPA"><code class="xref py py-class docutils literal notranslate"><span class="pre">SNPA</span></code></a> and refining the decomposition with the
+<a class="reference internal" href="../generated/mcrnmf.models.MinVol.html#mcrnmf.models.MinVol" title="mcrnmf.models.MinVol"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinVol</span></code></a> model.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_timepoints</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">size</span>
+<span class="n">known_H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">num_components</span><span class="p">,</span> <span class="n">num_timepoints</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+<span class="c1"># suppose you know the concentrations at first time point</span>
+<span class="n">known_H</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="c1"># suppose you also know the concentrations at the last time point</span>
+<span class="n">known_H</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.86</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="n">mvol_known</span> <span class="o">=</span> <span class="n">MinVol</span><span class="p">(</span>
+    <span class="n">rank</span><span class="o">=</span><span class="n">num_components</span><span class="p">,</span>
+    <span class="n">constraint_kind</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">unimodal</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="n">lambdaa</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
+    <span class="n">iter_max</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># the known H value information is provided here</span>
+<span class="n">mvol_known</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">Wi</span><span class="o">=</span><span class="n">Wi</span><span class="p">,</span> <span class="n">Hi</span><span class="o">=</span><span class="n">Hi</span><span class="p">,</span> <span class="n">known_H</span><span class="o">=</span><span class="n">known_H</span><span class="p">)</span>
+
+<span class="c1"># visualize the results</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">mvol_known</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_components</span><span class="p">)],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Component&quot;</span><span class="p">)</span>
+
+<span class="c1"># add the known values</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_components</span><span class="p">):</span>
+    <span class="n">known_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">known_H</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="n">known_indices</span><span class="p">],</span> <span class="n">known_H</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">known_indices</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [h]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Mole fraction&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Concentration Profiles with Known Values&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/known_conc.svg"><img alt="Supplying known concentration to the fit" src="../_images/known_conc.svg" style="width: 80%;" />
+</a>
+</figure>
+<p>These techniques work similarly across all McrNmf models that support constraints,
+including <a class="reference internal" href="../generated/mcrnmf.models.FroALS.html#mcrnmf.models.FroALS" title="mcrnmf.models.FroALS"><code class="xref py py-class docutils literal notranslate"><span class="pre">FroALS</span></code></a> and <a class="reference internal" href="../generated/mcrnmf.models.FroALS.html#mcrnmf.models.FroALS" title="mcrnmf.models.FroALS"><code class="xref py py-class docutils literal notranslate"><span class="pre">FroALS</span></code></a></p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-conflicting-constraints-unimodality-vs-closure">Handling Conflicting Constraints: <em>Unimodality vs. Closure</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#component-specific-unimodal-constraints">Component-Specific Unimodal Constraints</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#incorporating-known-concentration-measurements">Incorporating Known Concentration Measurements</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/usage/advanced.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Siddarth A. Vasudevan.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

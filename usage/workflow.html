@@ -1,0 +1,640 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Basic Workflow: From Data to Decomposition &#8212; mcrnmf 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'usage/workflow';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Advanced Topics" href="advanced.html" />
+    <link rel="prev" title="Usage Guide" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.svg" class="logo__image only-light" alt="mcrnmf 0.1.0 documentation - Home"/>
+    <img src="../_static/logo.svg" class="logo__image only-dark pst-js-only" alt="mcrnmf 0.1.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Usage Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../changelog.html">
+    Changelog
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Usage Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api.html">
+    API Reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../changelog.html">
+    Changelog
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Basic Workflow: From Data to Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reuse_w.html">Predicting Concentration Profiles from Fixed Spectra</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Usage Guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Basic Workflow: From Data to Decomposition</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="basic-workflow-from-data-to-decomposition">
+<h1>Basic Workflow: From Data to Decomposition<a class="headerlink" href="#basic-workflow-from-data-to-decomposition" title="Link to this heading">#</a></h1>
+<section id="example-reaction-spectroscopy-dataset">
+<h2>Example Reaction Spectroscopy Dataset<a class="headerlink" href="#example-reaction-spectroscopy-dataset" title="Link to this heading">#</a></h2>
+<p>Let’s demonstrate the API using a real-world reaction spectroscopy dataset included with
+the package:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">Normalize</span>
+
+<span class="c1"># for loading the dataset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcrnmf.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_rxn_spectra</span>
+
+<span class="c1"># import all necessary algorithms</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcrnmf</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinVol</span><span class="p">,</span> <span class="n">SNPA</span>
+
+<span class="c1"># Load Raman spectroscopy data from a chemical reaction</span>
+<span class="c1"># X: spectral data matrix (wavenumber × time points)</span>
+<span class="c1"># wv: wavenumber values (x-axis for spectra)</span>
+<span class="c1"># time: time points of the reaction (in hours)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">wv</span><span class="p">,</span> <span class="n">time</span> <span class="o">=</span> <span class="n">load_rxn_spectra</span><span class="p">()</span>
+
+<span class="c1"># Visualization of spectral data colored by time</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wv</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="n">i</span><span class="p">])),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Raman shift [1/cm]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Intensity [a.u.]&quot;</span><span class="p">)</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
+    <span class="n">mappable</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+<span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">&quot;Time [hr]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/time_series_spectra.svg"><img alt="Time series of Raman spectra" src="../_images/time_series_spectra.svg" style="width: 80%;" />
+</a>
+</figure>
+<p>Raman spectra colored by reaction time. Each line represents one spectrum at a specific
+time point. Changes in the spectra over time indicate chemical transformations.</p>
+</section>
+<section id="workflow-overview">
+<h2>Workflow Overview<a class="headerlink" href="#workflow-overview" title="Link to this heading">#</a></h2>
+<p>A typical MCR-NMF workflow consists of:</p>
+<ol class="arabic simple">
+<li><p><strong>Initial estimation</strong> of <span class="math notranslate nohighlight">\(W\)</span> and <span class="math notranslate nohighlight">\(H\)</span> matrices using <a class="reference internal" href="../generated/mcrnmf.models.SNPA.html#mcrnmf.models.SNPA" title="mcrnmf.models.SNPA"><code class="xref py py-class docutils literal notranslate"><span class="pre">SNPA</span></code></a></p></li>
+<li><p><strong>Refinement</strong> of these estimates using algorithms like <a class="reference internal" href="../generated/mcrnmf.models.MinVol.html#mcrnmf.models.MinVol" title="mcrnmf.models.MinVol"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinVol</span></code></a>,
+<a class="reference internal" href="../generated/mcrnmf.models.FroALS.html#mcrnmf.models.FroALS" title="mcrnmf.models.FroALS"><code class="xref py py-class docutils literal notranslate"><span class="pre">FroALS</span></code></a>, or <a class="reference internal" href="../generated/mcrnmf.models.FroALS.html#mcrnmf.models.FroALS" title="mcrnmf.models.FroALS"><code class="xref py py-class docutils literal notranslate"><span class="pre">FroALS</span></code></a></p></li>
+<li><p><strong>Analysis</strong> of the resulting component spectra and concentration profiles</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While the example below demonstrates <a class="reference internal" href="../generated/mcrnmf.models.SNPA.html#mcrnmf.models.SNPA" title="mcrnmf.models.SNPA"><code class="xref py py-class docutils literal notranslate"><span class="pre">SNPA</span></code></a>, the same workflow
+initialization with <a class="reference internal" href="../generated/mcrnmf.models.SNPA.html#mcrnmf.models.SNPA" title="mcrnmf.models.SNPA"><code class="xref py py-class docutils literal notranslate"><span class="pre">SNPA</span></code></a>, followed by fitting and evaluation
+also applies to <a class="reference internal" href="../generated/mcrnmf.models.FroALS.html#mcrnmf.models.FroALS" title="mcrnmf.models.FroALS"><code class="xref py py-class docutils literal notranslate"><span class="pre">FroALS</span></code></a> and <a class="reference internal" href="../generated/mcrnmf.models.FroFPGM.html#mcrnmf.models.FroFPGM" title="mcrnmf.models.FroFPGM"><code class="xref py py-class docutils literal notranslate"><span class="pre">FroFPGM</span></code></a>. We
+use <a class="reference internal" href="../generated/mcrnmf.models.MinVol.html#mcrnmf.models.MinVol" title="mcrnmf.models.MinVol"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinVol</span></code></a> here because, in our experience, it often produces
+the best results on real-world datasets.</p>
+</div>
+</section>
+<section id="initializing-component-estimates-with-snpa">
+<h2>Initializing Component Estimates with <a class="reference internal" href="../generated/mcrnmf.models.SNPA.html#mcrnmf.models.SNPA" title="mcrnmf.models.SNPA"><code class="xref py py-class docutils literal notranslate"><span class="pre">SNPA</span></code></a><a class="headerlink" href="#initializing-component-estimates-with-snpa" title="Link to this heading">#</a></h2>
+<p>Successive Nonnegative Projection Algorithm (SNPA) provides good initial values for
+<span class="math notranslate nohighlight">\(W\)</span> and <span class="math notranslate nohighlight">\(H\)</span> matrices. Here is an example of how you could use it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choose the number of chemical components to extract</span>
+<span class="n">num_components</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="c1"># Initialize and run SNPA algorithm</span>
+<span class="c1"># SNPA identifies vertices in the data cloud that likely represent pure components</span>
+<span class="n">snpa</span> <span class="o">=</span> <span class="n">SNPA</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="n">num_components</span><span class="p">,</span> <span class="n">iter_max</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">snpa</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Get the initial estimates</span>
+<span class="n">Wi</span> <span class="o">=</span> <span class="n">snpa</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># Initial estimate for component spectra</span>
+<span class="n">Hi</span> <span class="o">=</span> <span class="n">snpa</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># Initial estimate for concentration profiles</span>
+
+<span class="c1"># Visualization of the initial estimates</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wv</span><span class="p">,</span> <span class="n">Wi</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Wavenumber [1/cm]&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Intensity [a.u.]&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Initial estimate of pure component spectra (W)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">Hi</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [h]&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Mole fraction&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Initial estimate of concentration profiles (H)&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/initial_guess_from_SNPA.svg"><img alt="Initial estimates from SNPA" src="../_images/initial_guess_from_SNPA.svg" style="width: 80%;" />
+</a>
+</figure>
+</section>
+<section id="refining-spectral-decomposition-with-minvol">
+<h2>Refining Spectral Decomposition with <a class="reference internal" href="../generated/mcrnmf.models.MinVol.html#mcrnmf.models.MinVol" title="mcrnmf.models.MinVol"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinVol</span></code></a><a class="headerlink" href="#refining-spectral-decomposition-with-minvol" title="Link to this heading">#</a></h2>
+<p>Create an instance of <a class="reference internal" href="../generated/mcrnmf.models.MinVol.html#mcrnmf.models.MinVol" title="mcrnmf.models.MinVol"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinVol</span></code></a> and fit the model to the data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a MinVol instance with constraints</span>
+<span class="n">mvol_uni_all</span> <span class="o">=</span> <span class="n">MinVol</span><span class="p">(</span>
+    <span class="n">rank</span><span class="o">=</span><span class="n">num_components</span><span class="p">,</span>
+    <span class="n">constraint_kind</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Sum of concentrations at each timepoint ≤ 1</span>
+    <span class="n">unimodal</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>  <span class="c1"># All concentration profiles should be unimodal</span>
+    <span class="n">lambdaa</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>  <span class="c1"># Regularization parameter controlling the simplex volume</span>
+    <span class="n">iter_max</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>  <span class="c1"># Maximum number of iterations</span>
+<span class="p">)</span>
+
+<span class="c1"># Fit the MinVol model using initial estimates from SNPA</span>
+<span class="n">mvol_uni_all</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">Wi</span><span class="o">=</span><span class="n">Wi</span><span class="p">,</span> <span class="n">Hi</span><span class="o">=</span><span class="n">Hi</span><span class="p">)</span>
+
+<span class="c1"># Visualize the refined concentration profiles</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">mvol_uni_all</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="c1"># &#39;H&#39; result accessed from the property `H`</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_components</span><span class="p">)],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Component&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [h]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Mole fraction&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Concentration Evolution with All Components Unimodal&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/conc_mvol_uni_all.svg"><img alt="Concentration profiles with unimodal constraints" src="../_images/conc_mvol_uni_all.svg" style="width: 80%;" />
+</a>
+</figure>
+</section>
+<section id="evaluating-algorithm-convergence-and-fit-quality">
+<h2>Evaluating Algorithm Convergence and Fit Quality<a class="headerlink" href="#evaluating-algorithm-convergence-and-fit-quality" title="Link to this heading">#</a></h2>
+<p>After fitting a model, you can evaluate its convergence and performance using several
+properties. The <a class="reference internal" href="../generated/mcrnmf.models.MinVol.html#mcrnmf.models.MinVol" title="mcrnmf.models.MinVol"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinVol</span></code></a> algorithm provides three properties for
+evaluating results:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">is_converged</span></code>: Boolean indicating whether the algorithm reached convergence based
+on the tolerance criteria. If <code class="docutils literal notranslate"><span class="pre">False</span></code>, you might consider increasing <code class="docutils literal notranslate"><span class="pre">iter_max</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rel_loss_ls</span></code>: List of relative loss values at each iteration, combining both
+reconstruction error and volume regularization terms. This shows the overall
+optimization progress.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rel_reconstruction_error_ls</span></code>: List of just the relative reconstruction error component
+<span class="math notranslate nohighlight">\(\dfrac{||X-WH||_F}{||X||_F}\)</span> at each iteration. This measures how well your
+factorization approximates the original data.</p></li>
+</ul>
+<p>We now examine the convergence behavior of the previously fitted <a class="reference internal" href="../generated/mcrnmf.models.MinVol.html#mcrnmf.models.MinVol" title="mcrnmf.models.MinVol"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinVol</span></code></a>
+model.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if the algorithm converged within the maximum iterations</span>
+<span class="n">converged</span> <span class="o">=</span> <span class="n">mvol_uni_all</span><span class="o">.</span><span class="n">is_converged</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Did the algorithm converge? </span><span class="si">{</span><span class="n">converged</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Plot the overall loss (includes both reconstruction error and ...</span>
+<span class="c1"># volume regularization term)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mvol_uni_all</span><span class="o">.</span><span class="n">rel_loss_ls</span><span class="p">)</span> <span class="c1"># property containing relative loss</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Iteration&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Relative Loss&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Combined Loss (Reconstruction + Volume Regularization)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot just the reconstruction error</span>
+<span class="c1"># property containing the relative reconstruction error</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mvol_uni_all</span><span class="o">.</span><span class="n">rel_reconstruction_error_ls</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Iteration&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Reconstruction Error&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Relative Reconstruction Error: ||X-WH||_F/||X||_F&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Get the final reconstruction error</span>
+<span class="n">final_error</span> <span class="o">=</span> <span class="n">mvol_uni_all</span><span class="o">.</span><span class="n">rel_reconstruction_error_ls</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final relative reconstruction error: </span><span class="si">{</span><span class="n">final_error</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/mvol_all_performance.svg"><img alt="MinVol convergence plots" src="../_images/mvol_all_performance.svg" style="width: 80%;" />
+</a>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>For <a class="reference internal" href="../generated/mcrnmf.models.FroALS.html#mcrnmf.models.FroALS" title="mcrnmf.models.FroALS"><code class="xref py py-class docutils literal notranslate"><span class="pre">FroALS</span></code></a> and <a class="reference internal" href="../generated/mcrnmf.models.FroFPGM.html#mcrnmf.models.FroFPGM" title="mcrnmf.models.FroFPGM"><code class="xref py py-class docutils literal notranslate"><span class="pre">FroFPGM</span></code></a>,
+<code class="docutils literal notranslate"><span class="pre">rel_loss_ls</span></code> and <code class="docutils literal notranslate"><span class="pre">rel_reconstruction_error_ls</span></code> are identical because these
+algorithms optimize only the reconstruction error <span class="math notranslate nohighlight">\(||X-WH||_F^2\)</span>.</p></li>
+<li><p>For <a class="reference internal" href="../generated/mcrnmf.models.MinVol.html#mcrnmf.models.MinVol" title="mcrnmf.models.MinVol"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinVol</span></code></a>, these properties differ because it optimizes a
+combined objective: <span class="math notranslate nohighlight">\(||X-WH||_F^2 + \lambda \times \log(\det(W^T W + \delta I)),\)</span></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-reaction-spectroscopy-dataset">Example Reaction Spectroscopy Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-overview">Workflow Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initializing-component-estimates-with-snpa">Initializing Component Estimates with <code class="xref py py-class docutils literal notranslate"><span class="pre">SNPA</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refining-spectral-decomposition-with-minvol">Refining Spectral Decomposition with <code class="xref py py-class docutils literal notranslate"><span class="pre">MinVol</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-algorithm-convergence-and-fit-quality">Evaluating Algorithm Convergence and Fit Quality</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/usage/workflow.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Siddarth A. Vasudevan.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
