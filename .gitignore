@@ -1,0 +1,22 @@
+*.ipynb
+dist/
+build/
+*.egg-info/
+docs/build
+
+docs/resources/**
+# re-include .tex and .pdf files
+!docs/resources/**/*.tex
+!docs/resources/**/*.pdf
+
+# re-include the notebooks in notebooks
+!docs/resources/notebooks/*.ipynb
+
+# ensure these dir are tracked
+!docs/resources/
+!docs/resources/figures/
+!docs/resources/logo/
+!docs/resources/notebooks/
+
+# ignore log files generated from running generate_docs.sh
+docs/*.log

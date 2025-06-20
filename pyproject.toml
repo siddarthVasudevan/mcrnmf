@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcrnmf"
+version = "0.1.0"
+description = "Multivariate Curve Resolution using Nonnegative Matrix Factorization"
+readme = {file = "README.md", content-type = "text/markdown"}
+requires-python = ">=3.11.9,<3.14"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+  { name = "Siddarth A. Vasudevan", email = "devan.siddarth@gmail.com" },
+]
+keywords = [
+"MCR",
+"chemometrics",
+"NMF",
+"Multivariate Curve Resolution",
+"Nonnegative Matrix Factorization",
+]
+classifiers = [
+  "Programming Language :: Python :: 3.11",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  "numba>=0.61.2",
+  "numpy>=1.24,<2.3",
+]
+
+[project.urls]
+"Homepage"   = "https://siddarthvasudevan.github.io/mcrnmf/"
+"Repository" = "https://github.com/siddarthVasudevan/mcrnmf"
+
+[tool.setuptools.packages.find]
+where   = ["."]
+include = ["mcrnmf", "mcrnmf.*"]
+
+[tool.setuptools.package-data]
+"mcrnmf" = ["datasets/raman.csv"]

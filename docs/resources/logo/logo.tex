@@ -1,0 +1,22 @@
+\documentclass[tikz]{standalone}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{lmodern} % Add Latin Modern for better font scaling
+
+\begin{document}
+
+\begin{tikzpicture}
+  % White background rectangle
+  \fill[white] (-0.5,-0.5) rectangle (7.5,2.5);
+
+  % Main text using scale instead of fontsize
+  \node[scale=5.0, font={\sffamily\bfseries},
+        text=black] at (3.5,1) {\textcolor{orange}{Mcr}Nmf};
+
+  % Optional: Add a subtle shadow effect for depth
+  \node[scale=5.0, font={\sffamily\bfseries},
+        text=gray!30,
+        opacity=0.3] at (3.53,0.97) {\textcolor{orange!30}{Mcr}Nmf};
+\end{tikzpicture}
+
+\end{document}
