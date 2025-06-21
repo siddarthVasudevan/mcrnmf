@@ -2,7 +2,7 @@ McrNmf Documentation
 ====================
 
 Welcome to the documentation for **McrNmf**, a Python package for Multivariate Curve
-Resolution (MCR) using different Nonnegative Matrix Factorization (NMF) algorithms.The
+Resolution (MCR) using different Nonnegative Matrix Factorization (NMF) algorithms. The
 source code is hosted on GitHub: `https://github.com/siddarthVasudevan/mcrnmf <https://github.com/siddarthVasudevan/mcrnmf>`__
 
 MCR is widely used in chemometrics to decompose mixture spectra into their pure
