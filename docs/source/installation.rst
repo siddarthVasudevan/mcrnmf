@@ -4,6 +4,15 @@ Installation
 MCR-NMF can be installed using either `pip` or `conda`. Both methods will install the
 package along with its dependencies.
 
+With conda
+----------
+
+To install via `conda` from the `conda-forge` channel:
+
+.. code-block:: bash
+
+   conda install -c conda-forge mcrnmf
+
 With pip
 --------
 
@@ -18,15 +27,6 @@ To install the latest release from PyPI:
    **macOS Apple Silicon (M4) users:** When running the **McrNmf** package installed via
    pip, you may encounter runtime numerical warnings (e.g., divide/overflow). To avoid
    these, please install via conda-forge.
-
-With conda
-----------
-
-To install via `conda` from the `conda-forge` channel:
-
-.. code-block:: bash
-
-   conda install -c conda-forge mcrnmf
 
 From Source
 -----------
