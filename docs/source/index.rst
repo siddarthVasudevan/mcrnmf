@@ -27,7 +27,7 @@ Installation
 
 .. code-block:: bash
 
-   pip install mcrnmf
+   conda install -c conda-forge mcrnmf
 
 Basic Usage
 -----------

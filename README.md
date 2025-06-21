@@ -28,6 +28,10 @@ With pip:
 ```bash
 pip install mcrnmf
 ```
+> **Note for macOS Apple Silicon (M4) users:** When running the **McrNmf** package
+installed via pip, you may encounter runtime numerical warnings (e.g., divide/overflow).
+To avoid these, please install via **conda-forge**.
+
 
 With conda:
 
