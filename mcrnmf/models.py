@@ -568,8 +568,7 @@ class _BaseNMF(ABC):
 
 class FroALS(_BaseNMF):
     """
-    Frobenius norm-based Nonnegative Matrix Factorization (NMF) using Alternating Least
-    Squares (ALS) method.
+    Nonnegative Matrix Factorization (NMF) using Alternating Least Squares (ALS) method.
 
     Factorizes a nonnegative matrix :math:`X` into two nonnegative matrices :math:`W`
     and :math:`H` by minimizing the squared Frobenius norm between :math:`X` and product
@@ -908,8 +907,7 @@ class FroALS(_BaseNMF):
 
 class FroFPGM(_BaseNMF):
     """
-    Frobenius norm-based Nonnegative Matrix Factorization (NMF) using Fast Projected
-    Gradient Method (FPGM).
+    Nonnegative Matrix Factorization (NMF) using Fast Projected Gradient Method (FPGM).
 
     Factorizes a nonnegative matrix :math:`X` into two nonnegative matrices :math:`W`
     and :math:`H` by minimizing the squared Frobenius norm between :math:`X` and product
