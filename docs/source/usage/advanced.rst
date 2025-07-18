@@ -63,7 +63,7 @@ Consider the following example using the included dataset:
     print(f"All columns sum to 1: {np.allclose(column_sums, 1.0)}")
 
 
-    def is_unimodal(arr_1d: np.ndarray):
+    def is_unimodal(arr_1d):
         """Verifies that the array has at most one peak"""
         increasing = False
         decreasing = False
@@ -197,4 +197,4 @@ The example below builds on the same setup from earlier, using initial estimates
     :width: 80%
 
 These techniques work similarly across all McrNmf models that support constraints,
-including :class:`~mcrnmf.models.FroALS` and :class:`~mcrnmf.models.FroALS`
+including :class:`~mcrnmf.models.FroALS` and :class:`~mcrnmf.models.FroFPGM`
