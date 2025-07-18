@@ -407,7 +407,7 @@ concentrations sum to 1 at each time point) with unimodality constraints on <spa
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All columns sum to 1: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">column_sums</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">is_unimodal</span><span class="p">(</span><span class="n">arr_1d</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_unimodal</span><span class="p">(</span><span class="n">arr_1d</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifies that the array has at most one peak&quot;&quot;&quot;</span>
     <span class="n">increasing</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">decreasing</span> <span class="o">=</span> <span class="kc">False</span>
@@ -535,7 +535,7 @@ you can incorporate this information into the model fitting using the <code clas
 </a>
 </figure>
 <p>These techniques work similarly across all McrNmf models that support constraints,
-including <a class="reference internal" href="../generated/mcrnmf.models.FroALS.html#mcrnmf.models.FroALS" title="mcrnmf.models.FroALS"><code class="xref py py-class docutils literal notranslate"><span class="pre">FroALS</span></code></a> and <a class="reference internal" href="../generated/mcrnmf.models.FroALS.html#mcrnmf.models.FroALS" title="mcrnmf.models.FroALS"><code class="xref py py-class docutils literal notranslate"><span class="pre">FroALS</span></code></a></p>
+including <a class="reference internal" href="../generated/mcrnmf.models.FroALS.html#mcrnmf.models.FroALS" title="mcrnmf.models.FroALS"><code class="xref py py-class docutils literal notranslate"><span class="pre">FroALS</span></code></a> and <a class="reference internal" href="../generated/mcrnmf.models.FroFPGM.html#mcrnmf.models.FroFPGM" title="mcrnmf.models.FroFPGM"><code class="xref py py-class docutils literal notranslate"><span class="pre">FroFPGM</span></code></a></p>
 </section>
 </section>
 
