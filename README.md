@@ -82,6 +82,15 @@ rel_recon_err = mvol.rel_reconstruction_error_ls
 More worked examples can be found in the [Usage](https://siddarthvasudevan.github.io/mcrnmf/usage/index.html) section of the documentation.
 
 ---
+## Citation
+
+If you use **McrNmf** in your work, please consider citing the following preprint:
+
+> Vasudevan SA, Kohlbrenner R, Ritschel N, Vent-Schmidt T.
+> *Beyond Classical MCR-ALS—Minimum Volume NMF and Strategic Sampling for Robust Reaction Monitoring*.
+> ChemRxiv. 2025; [doi:10.26434/chemrxiv-2025-qs5g4](https://doi.org/10.26434/chemrxiv-2025-qs5g4)
+
+---
 ## License
 
 MIT – see [LICENSE](LICENSE).
