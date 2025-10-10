@@ -308,6 +308,30 @@ class TestFitArgumentsValidation:
         test_model._validate_fit_args(X, Wi, Hi, known_W, known_H)
 
 
+class TestOrderValidation:
+    """Validate the `order` initialization argument."""
+
+    @pytest.mark.parametrize("model_class", [FroALS, FroFPGM, MinVol])
+    def test_order_type(self, model_class):
+        with pytest.raises(
+            TypeError, match=r"`order` must be string like 'euc', 'uce' etc\."
+        ):
+            model_class(rank=2, order=123)
+
+    @pytest.mark.parametrize("model_class", [FroALS, FroFPGM, MinVol])
+    def test_order_allowed_chars(self, model_class):
+        with pytest.raises(
+            ValueError,
+            match=r"`order` may contain only 'e' \(equality\), 'u' \(unimodality\), 'c' \(closure\)\.",
+        ):
+            model_class(rank=2, order="exu")
+
+    @pytest.mark.parametrize("model_class", [FroALS, FroFPGM, MinVol])
+    def test_order_not_empty(self, model_class):
+        with pytest.raises(ValueError, match=r"`order` cannot be empty\."):
+            model_class(rank=2, order="")
+
+
 class TestBaseNMFFunctionality:
     """Test common fit functionality across NMF implementations."""
 
@@ -338,7 +362,6 @@ class TestBaseNMFFunctionality:
         with pytest.raises(AttributeError, match=r"`is_converged` is not available.*"):
             _ = model.is_converged
 
-        # not truly a base nmf functionality but including it here for convenience
         with pytest.raises(
             AttributeError, match=r"`rel_reconstruction_error_ls` is not available.*"
         ):
