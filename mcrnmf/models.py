@@ -743,7 +743,7 @@ class FroALS(_BaseNMF):
         constraint_kind: int = 0,
         unimodal: dict | None = None,
         iter_max: int = 500,
-        tol: int = 1e-4,
+        tol: float = 1e-4,
         order: str = "euc",
     ):
         super().__init__(
@@ -1106,7 +1106,7 @@ class FroFPGM(_BaseNMF):
         constraint_kind: int = 0,
         unimodal: dict | None = None,
         iter_max: int = 500,
-        tol: int = 0.0001,
+        tol: float = 0.0001,
         order: str = "euc",
         inner_iter_max: int = 20,
         inner_iter_tol: float = 0.1,
@@ -1127,7 +1127,8 @@ class FroFPGM(_BaseNMF):
             )
         if not isinstance(inner_iter_tol, float):
             raise TypeError(
-                f"`tol` must be of type {float}, current type is {type(inner_iter_tol)}"
+                f"`inner_iter_tol` must be of type {float}, current type is "
+                f"{type(inner_iter_tol)}"
             )
 
         if inner_iter_max <= 0:
@@ -1271,7 +1272,7 @@ class FroFPGM(_BaseNMF):
         H_diff: NDArray[np.float64],
         H_prev: NDArray[np.float64],
         known_H: None | NDArray[np.float64],
-        mask_known_H: None | NDArray[np.float64],
+        mask_known_H: None | NDArray[np.bool_],
     ) -> None:
         """
         Update the H matrix based on the current W matrix.
@@ -1351,7 +1352,7 @@ class FroFPGM(_BaseNMF):
         W_diff: NDArray[np.float64],
         W_prev: NDArray[np.float64],
         known_W: None | NDArray[np.float64],
-        mask_known_W: None | NDArray[np.float64],
+        mask_known_W: None | NDArray[np.bool_],
     ) -> None:
         """
         Update the W matrix based on the current H matrix.
@@ -1838,7 +1839,7 @@ class MinVol(FroFPGM):
         W_diff: NDArray[np.float64],
         W_prev: NDArray[np.float64],
         known_W: NDArray[np.float64] | None,
-        mask_known_W: NDArray[np.float64] | None,
+        mask_known_W: NDArray[np.bool_] | None,
     ) -> None:
         """
         Update W with minimum volume regularization.
