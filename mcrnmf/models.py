@@ -83,6 +83,7 @@ class _BaseNMF(ABC):
         unimodal: dict | None = None,
         iter_max: int = 500,
         tol: float = 1e-4,
+        order: str = "euc",
     ):
         # validate type
         if not isinstance(rank, (int, np.integer)):
@@ -105,6 +106,8 @@ class _BaseNMF(ABC):
             raise TypeError(
                 f"`tol` must be of type {float}, current type is {type(tol)}"
             )
+        if not isinstance(order, str):
+            raise TypeError("`order` must be string like 'euc', 'uce' etc.")
 
         # validate values
         if rank <= 0:
@@ -138,6 +141,14 @@ class _BaseNMF(ABC):
             raise ValueError("`iter_max` must be >= 10")
         if not (0 < tol < 1):
             raise ValueError("`tol` must be in the open interval (0, 1)")
+        allowed = set("euc")
+        if any(c not in allowed for c in order):
+            raise ValueError(
+                "`order` may contain only 'e' (equality), 'u' (unimodality), "
+                "'c' (closure)."
+            )
+        if len(order) == 0:
+            raise ValueError("`order` cannot be empty.")
 
         self.rank_ = rank
         self.constraint_kind_ = constraint_kind
@@ -145,6 +156,7 @@ class _BaseNMF(ABC):
         self.unimodal_H_ = unimodal_H
         self.iter_max_ = iter_max
         self.tol_ = tol
+        self.order_ = order
 
         # initialize attributes
         self._W = None
@@ -282,11 +294,59 @@ class _BaseNMF(ABC):
         elif isinstance(constraint, list):
             if len(constraint) != rank:
                 raise ValueError(f"Unimodal constraint list must have length {rank}.")
-            if not all(isinstance(c, bool) for c in constraint):
+            if not all(isinstance(ch, bool) for ch in constraint):
                 raise TypeError("Unimodal constraint list must contain only booleans.")
             return constraint
         else:
             raise TypeError("Unimodal constraint must be bool or list of booleans")
+
+    def _apply_constraints_seq(
+        self,
+        which: str,
+        order: str,
+        known: NDArray[np.float64] | None = None,
+        mask_known: NDArray[np.bool_] | None = None,
+    ):
+        """
+        Apply constraints to W or H in the given literal order.
+
+        Parameters
+        ----------
+        which : str
+            Either 'W' or 'H'
+        order : str
+            String like 'euc', 'uce', 'ceu', ...
+        known: ndarray, default=None
+            Array containing known values of either 'W' or 'H'
+        mask_known: ndarray, default=None
+            Mask which is True where equality constraint should be applied
+        """
+        if which == "H":
+            apply_eq = lambda: (
+                self._H.__setitem__(mask_known, known[mask_known])
+                if mask_known is not None
+                else None
+            )
+            apply_uni = self._apply_unimodal_H_rows
+            apply_closure = self._project_H
+        elif which == "W":
+            apply_eq = lambda: (
+                self._W.__setitem__(mask_known, known[mask_known])
+                if mask_known is not None
+                else None
+            )
+            apply_uni = self._apply_unimodal_W_cols
+            apply_closure = self._project_W
+        else:
+            raise ValueError("`which` must be 'W' or 'H'.")
+
+        for ch in order:
+            if ch == "e":
+                apply_eq()
+            elif ch == "u":
+                apply_uni()
+            elif ch == "c":
+                apply_closure()
 
     def _apply_unimodal_H_rows(self) -> None:
         """Apply unimodal constraints to rows of H."""
@@ -684,6 +744,7 @@ class FroALS(_BaseNMF):
         unimodal: dict | None = None,
         iter_max: int = 500,
         tol: int = 1e-4,
+        order: str = "euc",
     ):
         super().__init__(
             rank=rank,
@@ -691,6 +752,7 @@ class FroALS(_BaseNMF):
             unimodal=unimodal,
             iter_max=iter_max,
             tol=tol,
+            order=order,
         )
 
     @property
@@ -851,11 +913,14 @@ class FroALS(_BaseNMF):
             self._H[:] = np.linalg.solve(WtW, WtX)
         else:
             self._H[:] = np.linalg.solve(WtW, WtX)
-        # apply known values
-        if mask_known_H is not None:
-            self._H[mask_known_H] = known_H[mask_known_H]
-        self._apply_unimodal_H_rows()
-        self._project_H()
+        # # apply known values
+        # if mask_known_H is not None:
+        #     self._H[mask_known_H] = known_H[mask_known_H]
+        # self._apply_unimodal_H_rows()
+        # self._project_H()
+        self._apply_constraints_seq(
+            which="H", order=self.order_, known=known_H, mask_known=mask_known_H
+        )
 
     def _update_W(
         self,
@@ -898,11 +963,14 @@ class FroALS(_BaseNMF):
             self._W[:] = np.linalg.solve(HHt, XHt.T).T
         else:
             self._W[:] = np.linalg.solve(HHt, XHt.T).T
-        # apply known values
-        if mask_known_W is not None:
-            self._W[mask_known_W] = known_W[mask_known_W]
-        self._apply_unimodal_W_cols()
-        self._project_W()
+        # # apply known values
+        # if mask_known_W is not None:
+        #     self._W[mask_known_W] = known_W[mask_known_W]
+        # self._apply_unimodal_W_cols()
+        # self._project_W()
+        self._apply_constraints_seq(
+            which="W", order=self.order_, known=known_W, mask_known=mask_known_W
+        )
 
 
 class FroFPGM(_BaseNMF):
@@ -1039,6 +1107,7 @@ class FroFPGM(_BaseNMF):
         unimodal: dict | None = None,
         iter_max: int = 500,
         tol: int = 0.0001,
+        order: str = "euc",
         inner_iter_max: int = 20,
         inner_iter_tol: float = 0.1,
     ):
@@ -1048,6 +1117,7 @@ class FroFPGM(_BaseNMF):
             unimodal=unimodal,
             iter_max=iter_max,
             tol=tol,
+            order=order,
         )
 
         if not isinstance(inner_iter_max, (int, np.integer)):
@@ -1245,11 +1315,14 @@ class FroFPGM(_BaseNMF):
         while inner_iter < self.inner_iter_max_:
             H_prev[:] = self._H.copy()
             self._H[:] = Y_H - ((WtW @ Y_H) - WtX) / l
-            # apply known values
-            if mask_known_H is not None:
-                self._H[mask_known_H] = known_H[mask_known_H]
-            self._apply_unimodal_H_rows()
-            self._project_H()
+            # # apply known values
+            # if mask_known_H is not None:
+            #     self._H[mask_known_H] = known_H[mask_known_H]
+            # self._apply_unimodal_H_rows()
+            # self._project_H()
+            self._apply_constraints_seq(
+                which="H", order=self.order_, known=known_H, mask_known=mask_known_H
+            )
             H_diff[:] = self._H - H_prev
             norm_H_diff = np.linalg.norm(H_diff, "fro")
             if inner_iter == 0:
@@ -1322,11 +1395,14 @@ class FroFPGM(_BaseNMF):
         while inner_iter < self.inner_iter_max_:
             W_prev[:] = self._W.copy()
             self._W[:] = Y_W - ((Y_W @ HHt) - XHt) / l
-            # apply known values
-            if mask_known_W is not None:
-                self._W[mask_known_W] = known_W[mask_known_W]
-            self._apply_unimodal_W_cols()
-            self._project_W()
+            # # apply known values
+            # if mask_known_W is not None:
+            #     self._W[mask_known_W] = known_W[mask_known_W]
+            # self._apply_unimodal_W_cols()
+            # self._project_W()
+            self._apply_constraints_seq(
+                which="W", order=self.order_, known=known_W, mask_known=mask_known_W
+            )
             W_diff[:] = self._W - W_prev
             norm_W_diff = np.linalg.norm(W_diff, "fro")
             if inner_iter == 0:
@@ -1496,6 +1572,7 @@ class MinVol(FroFPGM):
         unimodal: dict | None = None,
         iter_max: int = 500,
         tol: float = 0.0001,
+        order: str = "euc",
         inner_iter_max: int = 20,
         inner_iter_tol: float = 0.1,
         delta: float | int = 0.1,
@@ -1507,6 +1584,7 @@ class MinVol(FroFPGM):
             unimodal=unimodal,
             iter_max=iter_max,
             tol=tol,
+            order=order,
             inner_iter_max=inner_iter_max,
             inner_iter_tol=inner_iter_tol,
         )
@@ -1804,11 +1882,14 @@ class MinVol(FroFPGM):
         while inner_iter < self.inner_iter_max_:
             W_prev[:] = self._W.copy()
             self._W[:] = Y_W - ((Y_W @ A) - XHt) / l
-            # apply known values
-            if mask_known_W is not None:
-                self._W[mask_known_W] = known_W[mask_known_W]
-            self._apply_unimodal_W_cols()
-            self._project_W()
+            # # apply known values
+            # if mask_known_W is not None:
+            #     self._W[mask_known_W] = known_W[mask_known_W]
+            # self._apply_unimodal_W_cols()
+            # self._project_W()
+            self._apply_constraints_seq(
+                which="W", order=self.order_, known=known_W, mask_known=mask_known_W
+            )
             W_diff[:] = self._W - W_prev
             norm_W_diff = np.linalg.norm(W_diff, "fro")
             if inner_iter == 0:
