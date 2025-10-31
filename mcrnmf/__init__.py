@@ -9,6 +9,6 @@ for multivariate curve resolution (MCR) applications.
 from .models import FroALS, FroFPGM, MinVol, SNPA
 from .nnls import FPGM
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = ["FroALS", "FroFPGM", "MinVol", "SNPA", "FPGM"]
