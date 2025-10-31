@@ -703,6 +703,19 @@ class FroALS(_BaseNMF):
 
                 where :math:`W^{i}` and :math:`H^{i}` is the value of :math:`W` and
                 :math:`H`, respectively, after iteration :math:`i`.
+    order : str, default='euc'
+        Specifies the sequence in which constraints are applied during optimization.
+
+        Each character corresponds to a constraint type:
+
+            * 'e' = equality
+            * 'u' = unimodality
+            * 'c' = closure
+
+        For example:
+
+            * 'euc': equality -> unimodality -> closure
+            * 'uce': unimodality -> closure -> equality
 
     References
     ----------
@@ -1050,6 +1063,19 @@ class FroFPGM(_BaseNMF):
 
                 where :math:`W^{i}` and :math:`H^{i}` is the value of :math:`W` and
                 :math:`H`, respectively, after iteration :math:`i`.
+    order : str, default='euc'
+        Specifies the sequence in which constraints are applied during optimization.
+
+        Each character corresponds to a constraint type:
+
+            * 'e' = equality
+            * 'u' = unimodality
+            * 'c' = closure
+
+        For example:
+
+            * 'euc': equality -> unimodality -> closure
+            * 'uce': unimodality -> closure -> equality
     inner_iter_max : int, default=20
         Maximum number of inner iterations performed during each single update of either
         :math:`W` or :math:`H` while the other is held fixed.
@@ -1509,6 +1535,19 @@ class MinVol(FroFPGM):
 
                 where :math:`W^{i}` and :math:`H^{i}` is the value of :math:`W` and
                 :math:`H`, respectively, after iteration :math:`i`.
+    order : str, default='euc'
+        Specifies the sequence in which constraints are applied during optimization.
+
+        Each character corresponds to a constraint type:
+
+            * 'e' = equality
+            * 'u' = unimodality
+            * 'c' = closure
+
+        For example:
+
+            * 'euc': equality -> unimodality -> closure
+            * 'uce': unimodality -> closure -> equality
     inner_iter_max : int, default=20
         Maximum number of inner iterations performed during each single update of either
         :math:`W` or :math:`H` while the other is held fixed.
