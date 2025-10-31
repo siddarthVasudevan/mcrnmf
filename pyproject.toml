@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mcrnmf"
-version = "0.1.1"
+version = "0.1.2"
 description = "Multivariate Curve Resolution using Nonnegative Matrix Factorization"
 readme = {file = "README.md", content-type = "text/markdown"}
 requires-python = ">=3.11.9,<3.14"
