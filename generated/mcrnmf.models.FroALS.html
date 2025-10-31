@@ -362,7 +362,7 @@
 <h1>FroALS<a class="headerlink" href="#froals" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="mcrnmf.models.FroALS">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcrnmf.models.</span></span><span class="sig-name descname"><span class="pre">FroALS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unimodal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mcrnmf/models.html#FroALS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mcrnmf.models.FroALS" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcrnmf.models.</span></span><span class="sig-name descname"><span class="pre">FroALS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unimodal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'euc'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mcrnmf/models.html#FroALS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mcrnmf.models.FroALS" title="Link to this definition">#</a></dt>
 <dd><p>Nonnegative Matrix Factorization (NMF) using Alternating Least Squares (ALS) method.</p>
 <p>Factorizes a nonnegative matrix <span class="math notranslate nohighlight">\(X\)</span> into two nonnegative matrices <span class="math notranslate nohighlight">\(W\)</span>
 and <span class="math notranslate nohighlight">\(H\)</span> by minimizing the squared Frobenius norm between <span class="math notranslate nohighlight">\(X\)</span> and product
@@ -437,6 +437,23 @@ is defined as</p>
 <span class="math notranslate nohighlight">\(H\)</span>, respectively, after iteration <span class="math notranslate nohighlight">\(i\)</span>.</p>
 </div></blockquote>
 </li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>order</strong><span class="classifier">str, default=’euc’</span></dt><dd><p>Specifies the sequence in which constraints are applied during optimization.</p>
+<p>Each character corresponds to a constraint type:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘e’ = equality</p></li>
+<li><p>‘u’ = unimodality</p></li>
+<li><p>‘c’ = closure</p></li>
+</ul>
+</div></blockquote>
+<p>For example:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘euc’: equality -&gt; unimodality -&gt; closure</p></li>
+<li><p>‘uce’: unimodality -&gt; closure -&gt; equality</p></li>
 </ul>
 </div></blockquote>
 </dd>

@@ -418,6 +418,7 @@
         <span class="n">unimodal</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">iter_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
         <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span>
+        <span class="n">order</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;euc&quot;</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="c1"># validate type</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">)):</span>
@@ -440,6 +441,8 @@
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;`tol` must be of type </span><span class="si">{</span><span class="nb">float</span><span class="si">}</span><span class="s2">, current type is </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">tol</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;`order` must be string like &#39;euc&#39;, &#39;uce&#39; etc.&quot;</span><span class="p">)</span>
 
         <span class="c1"># validate values</span>
         <span class="k">if</span> <span class="n">rank</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
@@ -473,6 +476,14 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`iter_max` must be &gt;= 10&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">tol</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`tol` must be in the open interval (0, 1)&quot;</span><span class="p">)</span>
+        <span class="n">allowed</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="s2">&quot;euc&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">order</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;`order` may contain only &#39;e&#39; (equality), &#39;u&#39; (unimodality), &quot;</span>
+                <span class="s2">&quot;&#39;c&#39; (closure).&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`order` cannot be empty.&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">rank_</span> <span class="o">=</span> <span class="n">rank</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">constraint_kind_</span> <span class="o">=</span> <span class="n">constraint_kind</span>
@@ -480,6 +491,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">unimodal_H_</span> <span class="o">=</span> <span class="n">unimodal_H</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iter_max_</span> <span class="o">=</span> <span class="n">iter_max</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tol_</span> <span class="o">=</span> <span class="n">tol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order_</span> <span class="o">=</span> <span class="n">order</span>
 
         <span class="c1"># initialize attributes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_W</span> <span class="o">=</span> <span class="kc">None</span>
@@ -617,11 +629,59 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">constraint</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">constraint</span><span class="p">)</span> <span class="o">!=</span> <span class="n">rank</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unimodal constraint list must have length </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">constraint</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">constraint</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Unimodal constraint list must contain only booleans.&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">constraint</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Unimodal constraint must be bool or list of booleans&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_apply_constraints_seq</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">which</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">order</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">known</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">mask_known</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply constraints to W or H in the given literal order.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        which : str</span>
+<span class="sd">            Either &#39;W&#39; or &#39;H&#39;</span>
+<span class="sd">        order : str</span>
+<span class="sd">            String like &#39;euc&#39;, &#39;uce&#39;, &#39;ceu&#39;, ...</span>
+<span class="sd">        known: ndarray, default=None</span>
+<span class="sd">            Array containing known values of either &#39;W&#39; or &#39;H&#39;</span>
+<span class="sd">        mask_known: ndarray, default=None</span>
+<span class="sd">            Mask which is True where equality constraint should be applied</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">which</span> <span class="o">==</span> <span class="s2">&quot;H&quot;</span><span class="p">:</span>
+            <span class="n">apply_eq</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_H</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">mask_known</span><span class="p">,</span> <span class="n">known</span><span class="p">[</span><span class="n">mask_known</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">mask_known</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+            <span class="n">apply_uni</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apply_unimodal_H_rows</span>
+            <span class="n">apply_closure</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_project_H</span>
+        <span class="k">elif</span> <span class="n">which</span> <span class="o">==</span> <span class="s2">&quot;W&quot;</span><span class="p">:</span>
+            <span class="n">apply_eq</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_W</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">mask_known</span><span class="p">,</span> <span class="n">known</span><span class="p">[</span><span class="n">mask_known</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">mask_known</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+            <span class="n">apply_uni</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apply_unimodal_W_cols</span>
+            <span class="n">apply_closure</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_project_W</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`which` must be &#39;W&#39; or &#39;H&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">order</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">&quot;e&quot;</span><span class="p">:</span>
+                <span class="n">apply_eq</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">&quot;u&quot;</span><span class="p">:</span>
+                <span class="n">apply_uni</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span>
+                <span class="n">apply_closure</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_apply_unimodal_H_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply unimodal constraints to rows of H.&quot;&quot;&quot;</span>
@@ -980,6 +1040,19 @@
 
 <span class="sd">                where :math:`W^{i}` and :math:`H^{i}` is the value of :math:`W` and</span>
 <span class="sd">                :math:`H`, respectively, after iteration :math:`i`.</span>
+<span class="sd">    order : str, default=&#39;euc&#39;</span>
+<span class="sd">        Specifies the sequence in which constraints are applied during optimization.</span>
+
+<span class="sd">        Each character corresponds to a constraint type:</span>
+
+<span class="sd">            * &#39;e&#39; = equality</span>
+<span class="sd">            * &#39;u&#39; = unimodality</span>
+<span class="sd">            * &#39;c&#39; = closure</span>
+
+<span class="sd">        For example:</span>
+
+<span class="sd">            * &#39;euc&#39;: equality -&gt; unimodality -&gt; closure</span>
+<span class="sd">            * &#39;uce&#39;: unimodality -&gt; closure -&gt; equality</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -1020,7 +1093,8 @@
         <span class="n">constraint_kind</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">unimodal</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">iter_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
-        <span class="n">tol</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span>
+        <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span>
+        <span class="n">order</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;euc&quot;</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">,</span>
@@ -1028,6 +1102,7 @@
             <span class="n">unimodal</span><span class="o">=</span><span class="n">unimodal</span><span class="p">,</span>
             <span class="n">iter_max</span><span class="o">=</span><span class="n">iter_max</span><span class="p">,</span>
             <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
+            <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -1191,11 +1266,14 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_H</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">WtW</span><span class="p">,</span> <span class="n">WtX</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_H</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">WtW</span><span class="p">,</span> <span class="n">WtX</span><span class="p">)</span>
-        <span class="c1"># apply known values</span>
-        <span class="k">if</span> <span class="n">mask_known_H</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_H</span><span class="p">[</span><span class="n">mask_known_H</span><span class="p">]</span> <span class="o">=</span> <span class="n">known_H</span><span class="p">[</span><span class="n">mask_known_H</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_unimodal_H_rows</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_project_H</span><span class="p">()</span>
+        <span class="c1"># # apply known values</span>
+        <span class="c1"># if mask_known_H is not None:</span>
+        <span class="c1">#     self._H[mask_known_H] = known_H[mask_known_H]</span>
+        <span class="c1"># self._apply_unimodal_H_rows()</span>
+        <span class="c1"># self._project_H()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_constraints_seq</span><span class="p">(</span>
+            <span class="n">which</span><span class="o">=</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">order_</span><span class="p">,</span> <span class="n">known</span><span class="o">=</span><span class="n">known_H</span><span class="p">,</span> <span class="n">mask_known</span><span class="o">=</span><span class="n">mask_known_H</span>
+        <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_W</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1238,11 +1316,14 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_W</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">HHt</span><span class="p">,</span> <span class="n">XHt</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_W</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">HHt</span><span class="p">,</span> <span class="n">XHt</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-        <span class="c1"># apply known values</span>
-        <span class="k">if</span> <span class="n">mask_known_W</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_W</span><span class="p">[</span><span class="n">mask_known_W</span><span class="p">]</span> <span class="o">=</span> <span class="n">known_W</span><span class="p">[</span><span class="n">mask_known_W</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_unimodal_W_cols</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_project_W</span><span class="p">()</span></div>
+        <span class="c1"># # apply known values</span>
+        <span class="c1"># if mask_known_W is not None:</span>
+        <span class="c1">#     self._W[mask_known_W] = known_W[mask_known_W]</span>
+        <span class="c1"># self._apply_unimodal_W_cols()</span>
+        <span class="c1"># self._project_W()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_constraints_seq</span><span class="p">(</span>
+            <span class="n">which</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">order_</span><span class="p">,</span> <span class="n">known</span><span class="o">=</span><span class="n">known_W</span><span class="p">,</span> <span class="n">mask_known</span><span class="o">=</span><span class="n">mask_known_W</span>
+        <span class="p">)</span></div>
 
 
 
@@ -1325,6 +1406,19 @@
 
 <span class="sd">                where :math:`W^{i}` and :math:`H^{i}` is the value of :math:`W` and</span>
 <span class="sd">                :math:`H`, respectively, after iteration :math:`i`.</span>
+<span class="sd">    order : str, default=&#39;euc&#39;</span>
+<span class="sd">        Specifies the sequence in which constraints are applied during optimization.</span>
+
+<span class="sd">        Each character corresponds to a constraint type:</span>
+
+<span class="sd">            * &#39;e&#39; = equality</span>
+<span class="sd">            * &#39;u&#39; = unimodality</span>
+<span class="sd">            * &#39;c&#39; = closure</span>
+
+<span class="sd">        For example:</span>
+
+<span class="sd">            * &#39;euc&#39;: equality -&gt; unimodality -&gt; closure</span>
+<span class="sd">            * &#39;uce&#39;: unimodality -&gt; closure -&gt; equality</span>
 <span class="sd">    inner_iter_max : int, default=20</span>
 <span class="sd">        Maximum number of inner iterations performed during each single update of either</span>
 <span class="sd">        :math:`W` or :math:`H` while the other is held fixed.</span>
@@ -1381,7 +1475,8 @@
         <span class="n">constraint_kind</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">unimodal</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">iter_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
-        <span class="n">tol</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mf">0.0001</span><span class="p">,</span>
+        <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0001</span><span class="p">,</span>
+        <span class="n">order</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;euc&quot;</span><span class="p">,</span>
         <span class="n">inner_iter_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
         <span class="n">inner_iter_tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
     <span class="p">):</span>
@@ -1391,6 +1486,7 @@
             <span class="n">unimodal</span><span class="o">=</span><span class="n">unimodal</span><span class="p">,</span>
             <span class="n">iter_max</span><span class="o">=</span><span class="n">iter_max</span><span class="p">,</span>
             <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
+            <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inner_iter_max</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">)):</span>
@@ -1400,7 +1496,8 @@
             <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inner_iter_tol</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;`tol` must be of type </span><span class="si">{</span><span class="nb">float</span><span class="si">}</span><span class="s2">, current type is </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">inner_iter_tol</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;`inner_iter_tol` must be of type </span><span class="si">{</span><span class="nb">float</span><span class="si">}</span><span class="s2">, current type is &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">inner_iter_tol</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">inner_iter_max</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
@@ -1547,7 +1644,7 @@
         <span class="n">H_diff</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">],</span>
         <span class="n">H_prev</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">],</span>
         <span class="n">known_H</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">],</span>
-        <span class="n">mask_known_H</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">],</span>
+        <span class="n">mask_known_H</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the H matrix based on the current W matrix.</span>
@@ -1591,11 +1688,14 @@
         <span class="k">while</span> <span class="n">inner_iter</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">inner_iter_max_</span><span class="p">:</span>
             <span class="n">H_prev</span><span class="p">[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_H</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_H</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">Y_H</span> <span class="o">-</span> <span class="p">((</span><span class="n">WtW</span> <span class="o">@</span> <span class="n">Y_H</span><span class="p">)</span> <span class="o">-</span> <span class="n">WtX</span><span class="p">)</span> <span class="o">/</span> <span class="n">l</span>
-            <span class="c1"># apply known values</span>
-            <span class="k">if</span> <span class="n">mask_known_H</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_H</span><span class="p">[</span><span class="n">mask_known_H</span><span class="p">]</span> <span class="o">=</span> <span class="n">known_H</span><span class="p">[</span><span class="n">mask_known_H</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_apply_unimodal_H_rows</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_project_H</span><span class="p">()</span>
+            <span class="c1"># # apply known values</span>
+            <span class="c1"># if mask_known_H is not None:</span>
+            <span class="c1">#     self._H[mask_known_H] = known_H[mask_known_H]</span>
+            <span class="c1"># self._apply_unimodal_H_rows()</span>
+            <span class="c1"># self._project_H()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_apply_constraints_seq</span><span class="p">(</span>
+                <span class="n">which</span><span class="o">=</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">order_</span><span class="p">,</span> <span class="n">known</span><span class="o">=</span><span class="n">known_H</span><span class="p">,</span> <span class="n">mask_known</span><span class="o">=</span><span class="n">mask_known_H</span>
+            <span class="p">)</span>
             <span class="n">H_diff</span><span class="p">[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_H</span> <span class="o">-</span> <span class="n">H_prev</span>
             <span class="n">norm_H_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">H_diff</span><span class="p">,</span> <span class="s2">&quot;fro&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">inner_iter</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -1624,7 +1724,7 @@
         <span class="n">W_diff</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">],</span>
         <span class="n">W_prev</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">],</span>
         <span class="n">known_W</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">],</span>
-        <span class="n">mask_known_W</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">],</span>
+        <span class="n">mask_known_W</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the W matrix based on the current H matrix.</span>
@@ -1668,11 +1768,14 @@
         <span class="k">while</span> <span class="n">inner_iter</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">inner_iter_max_</span><span class="p">:</span>
             <span class="n">W_prev</span><span class="p">[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_W</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_W</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">Y_W</span> <span class="o">-</span> <span class="p">((</span><span class="n">Y_W</span> <span class="o">@</span> <span class="n">HHt</span><span class="p">)</span> <span class="o">-</span> <span class="n">XHt</span><span class="p">)</span> <span class="o">/</span> <span class="n">l</span>
-            <span class="c1"># apply known values</span>
-            <span class="k">if</span> <span class="n">mask_known_W</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_W</span><span class="p">[</span><span class="n">mask_known_W</span><span class="p">]</span> <span class="o">=</span> <span class="n">known_W</span><span class="p">[</span><span class="n">mask_known_W</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_apply_unimodal_W_cols</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_project_W</span><span class="p">()</span>
+            <span class="c1"># # apply known values</span>
+            <span class="c1"># if mask_known_W is not None:</span>
+            <span class="c1">#     self._W[mask_known_W] = known_W[mask_known_W]</span>
+            <span class="c1"># self._apply_unimodal_W_cols()</span>
+            <span class="c1"># self._project_W()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_apply_constraints_seq</span><span class="p">(</span>
+                <span class="n">which</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">order_</span><span class="p">,</span> <span class="n">known</span><span class="o">=</span><span class="n">known_W</span><span class="p">,</span> <span class="n">mask_known</span><span class="o">=</span><span class="n">mask_known_W</span>
+            <span class="p">)</span>
             <span class="n">W_diff</span><span class="p">[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_W</span> <span class="o">-</span> <span class="n">W_prev</span>
             <span class="n">norm_W_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">W_diff</span><span class="p">,</span> <span class="s2">&quot;fro&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">inner_iter</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -1781,6 +1884,19 @@
 
 <span class="sd">                where :math:`W^{i}` and :math:`H^{i}` is the value of :math:`W` and</span>
 <span class="sd">                :math:`H`, respectively, after iteration :math:`i`.</span>
+<span class="sd">    order : str, default=&#39;euc&#39;</span>
+<span class="sd">        Specifies the sequence in which constraints are applied during optimization.</span>
+
+<span class="sd">        Each character corresponds to a constraint type:</span>
+
+<span class="sd">            * &#39;e&#39; = equality</span>
+<span class="sd">            * &#39;u&#39; = unimodality</span>
+<span class="sd">            * &#39;c&#39; = closure</span>
+
+<span class="sd">        For example:</span>
+
+<span class="sd">            * &#39;euc&#39;: equality -&gt; unimodality -&gt; closure</span>
+<span class="sd">            * &#39;uce&#39;: unimodality -&gt; closure -&gt; equality</span>
 <span class="sd">    inner_iter_max : int, default=20</span>
 <span class="sd">        Maximum number of inner iterations performed during each single update of either</span>
 <span class="sd">        :math:`W` or :math:`H` while the other is held fixed.</span>
@@ -1845,6 +1961,7 @@
         <span class="n">unimodal</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">iter_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
         <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0001</span><span class="p">,</span>
+        <span class="n">order</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;euc&quot;</span><span class="p">,</span>
         <span class="n">inner_iter_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
         <span class="n">inner_iter_tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
         <span class="n">delta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
@@ -1856,6 +1973,7 @@
             <span class="n">unimodal</span><span class="o">=</span><span class="n">unimodal</span><span class="p">,</span>
             <span class="n">iter_max</span><span class="o">=</span><span class="n">iter_max</span><span class="p">,</span>
             <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
+            <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
             <span class="n">inner_iter_max</span><span class="o">=</span><span class="n">inner_iter_max</span><span class="p">,</span>
             <span class="n">inner_iter_tol</span><span class="o">=</span><span class="n">inner_iter_tol</span><span class="p">,</span>
         <span class="p">)</span>
@@ -2112,7 +2230,7 @@
         <span class="n">W_diff</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">],</span>
         <span class="n">W_prev</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">],</span>
         <span class="n">known_W</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">mask_known_W</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">mask_known_W</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update W with minimum volume regularization.</span>
@@ -2156,11 +2274,14 @@
         <span class="k">while</span> <span class="n">inner_iter</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">inner_iter_max_</span><span class="p">:</span>
             <span class="n">W_prev</span><span class="p">[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_W</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_W</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">Y_W</span> <span class="o">-</span> <span class="p">((</span><span class="n">Y_W</span> <span class="o">@</span> <span class="n">A</span><span class="p">)</span> <span class="o">-</span> <span class="n">XHt</span><span class="p">)</span> <span class="o">/</span> <span class="n">l</span>
-            <span class="c1"># apply known values</span>
-            <span class="k">if</span> <span class="n">mask_known_W</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_W</span><span class="p">[</span><span class="n">mask_known_W</span><span class="p">]</span> <span class="o">=</span> <span class="n">known_W</span><span class="p">[</span><span class="n">mask_known_W</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_apply_unimodal_W_cols</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_project_W</span><span class="p">()</span>
+            <span class="c1"># # apply known values</span>
+            <span class="c1"># if mask_known_W is not None:</span>
+            <span class="c1">#     self._W[mask_known_W] = known_W[mask_known_W]</span>
+            <span class="c1"># self._apply_unimodal_W_cols()</span>
+            <span class="c1"># self._project_W()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_apply_constraints_seq</span><span class="p">(</span>
+                <span class="n">which</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">order_</span><span class="p">,</span> <span class="n">known</span><span class="o">=</span><span class="n">known_W</span><span class="p">,</span> <span class="n">mask_known</span><span class="o">=</span><span class="n">mask_known_W</span>
+            <span class="p">)</span>
             <span class="n">W_diff</span><span class="p">[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_W</span> <span class="o">-</span> <span class="n">W_prev</span>
             <span class="n">norm_W_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">W_diff</span><span class="p">,</span> <span class="s2">&quot;fro&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">inner_iter</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>

@@ -362,7 +362,7 @@
 <h1>MinVol<a class="headerlink" href="#minvol" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="mcrnmf.models.MinVol">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcrnmf.models.</span></span><span class="sig-name descname"><span class="pre">MinVol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unimodal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner_iter_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner_iter_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambdaa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mcrnmf/models.html#MinVol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mcrnmf.models.MinVol" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcrnmf.models.</span></span><span class="sig-name descname"><span class="pre">MinVol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unimodal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'euc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner_iter_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner_iter_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambdaa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mcrnmf/models.html#MinVol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mcrnmf.models.MinVol" title="Link to this definition">#</a></dt>
 <dd><p>Minimum-Volume Nonnegative Matrix Factorization (NMF) implementation using Fast
 Projected Gradient Method.</p>
 <p>This class implements the FPGM to perform Minimum-Volume NMF, minimizing the
@@ -446,6 +446,23 @@ is defined as</p>
 <span class="math notranslate nohighlight">\(H\)</span>, respectively, after iteration <span class="math notranslate nohighlight">\(i\)</span>.</p>
 </div></blockquote>
 </li>
+</ul>
+</div></blockquote>
+</dd>
+<dt><strong>order</strong><span class="classifier">str, default=’euc’</span></dt><dd><p>Specifies the sequence in which constraints are applied during optimization.</p>
+<p>Each character corresponds to a constraint type:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘e’ = equality</p></li>
+<li><p>‘u’ = unimodality</p></li>
+<li><p>‘c’ = closure</p></li>
+</ul>
+</div></blockquote>
+<p>For example:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘euc’: equality -&gt; unimodality -&gt; closure</p></li>
+<li><p>‘uce’: unimodality -&gt; closure -&gt; equality</p></li>
 </ul>
 </div></blockquote>
 </dd>
